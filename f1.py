@@ -108,54 +108,41 @@ plt.show()
 # The regression line shows the trend and how well both variables are related.
 # -------------------------------------------------------
 
-
-# features & target
 X = df_clean[['Sample_Size']]
 y = df_clean['Data_Value']
 
-# train-test split
 X_train, X_test, y_train, y_test = train_test_split(
     X, y, test_size=0.2, random_state=42
 )
 
-# model training
 model = LinearRegression()
 model.fit(X_train, y_train)
 
-# predictions
 y_pred = model.predict(X_test)
 
-# evaluation
 print("R2 Score:", r2_score(y_test, y_pred))
 
 print("\n--- regression result ---")
 print(f"Slope: {model.coef_[0]:.4f}")
 print(f"Intercept: {model.intercept_:.4f}")
 
-# -------------------------------------------------------
-# PLOTTING (clean + correct regression line)
-# -------------------------------------------------------
-
-# sorting for smooth line
 sorted_index = np.argsort(X_test['Sample_Size'].values)
 X_test_sorted = X_test.values[sorted_index]
 y_pred_sorted = y_pred[sorted_index]
 
 plt.figure(figsize=(8, 5))
 
-# actual data
 plt.scatter(X_test, y_test, alpha=0.4, label="Actual Data")
-
-# regression line
 plt.plot(X_test_sorted, y_pred_sorted, color='red', label="Regression Line")
 
-plt.title("Linear Regression: Sample_Size vs Data_Value\nObjective 2: Predict Data_Value using Sample_Size")
+plt.title("Linear Regression: Sample_Size vs Data_Value")
 plt.xlabel("Sample Size")
 plt.ylabel("Data Value (%)")
 plt.legend()
 plt.grid(alpha=0.3)
 
 plt.show()
+
 # -------------------------------------------------------
 # OBJECTIVE 3 : LINE GRAPH
 # I grouped the data by year and calculated the average Data_Value each year.
